@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-# from django.core.management.utils import get_random_secret_key
+from django.core.management.utils import get_random_secret_key
 import os
 import sys
 import dj_database_url
@@ -26,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = 'django-insecure-!4d6!%mc*lu=n8=b)8kj*zmi6k28!s%ug!qv-=v-2wdpd6zv%d'
-# SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+# SECRET_KEY = 'django-insecure-!4d6!%mc*lu=n8=b)8kj*zmi6k28!s%ug!qv-=v-2wdpd6zv%d'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
