@@ -1,0 +1,102 @@
+{% extends 'todo/index.html' %}
+{% block title %}{{request.user}}'s TodoList {% endblock title %}
+{% block content %}
+<header class="header">
+  {% if request.user.is_authenticated %}
+  <div class="d-flex">
+    <div class="p-2 w-100">
+      <h4 class="my-2">Hello {{request.user|title}}!</h4>
+    </div>
+    <div>
+      <button type="button" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Logout">
+        <a href="{% url 'logout' %}" style="color:black;">Logout</a>
+      </button>
+    </div>
+
+  </div>
+  <h6 class="px-2">You have <i>{{count}}</i> incompleted task{{ count|pluralize:"s" }} on your ToDo List</h6>
+  {% else %}
+  <a href="{% url 'login' %}">Login</a>
+  {% endif %}
+</header>
+
+<hr>
+
+<button type="button" class="btn btn-light" data-toggle="tooltip" data-placement="right"
+  title="Add task in your ToDo list">
+  <a href="{% url 'task-create' %}"><i class='bx bx-list-plus' style='color:darkslategrey;font-size:xxx-large;'></i></a>
+</button>
+<br><br>
+<form class="form-inline">
+  <div class="ml-0 form-group mb-2 mr-2">
+    <input type="text" class="form-control" placeholder="Enter task to Search" name="searchinp" value="{{searchinp}}">
+  </div>
+  <button type="submit" class="btn btnsp btn-light mb-2">Search</button>
+</form>
+
+<br>
+<h2 class="px-2"><u>Your Task{{ count|pluralize:"s" }}:</u></h2><br>
+<div class="d-flex flex-column mb-3">
+  {% for task in tasks %}
+  <div class="px-2 d-flex flex-row justify-content-start">
+    {% if task.complete %}
+    <div class="pr-4">
+      <p><i><s>{{task.title}}</s></i>
+        <button type="button" class="btn" data-toggle="tooltip" data-placement="top"
+          title="View this task of your ToDo list">
+          <a href="{% url 'task' task.id %}"><i class='bx bx-file-blank' style='color:grey;font-size:x-large;'></i></a>
+        </button>
+        <button type="button" class="btn" data-toggle="tooltip" data-placement="top"
+          title="Edit this task in your ToDo list">
+          <a href="{% url 'task-update' task.id %}"><i class='bx bx-pencil'
+              style='color:grey;font-size:x-large;'></i></a>
+        </button>
+      </p>
+    </div>
+    {% else %}
+    <div class="pr-4">
+      <p>{{task.title}}
+        <button type="button" class="btn" data-toggle="tooltip" data-placement="top"
+          title="View this task of your ToDo list">
+          <a href="{% url 'task' task.id %}"><i class='bx bx-file-blank' style='color:grey;font-size:x-large;'></i></a>
+        </button>
+        <button type="button" class="btn" data-toggle="tooltip" data-placement="top"
+          title="Edit this task in your ToDo list">
+          <a href="{% url 'task-update' task.id %}"><i class='bx bx-pencil'
+              style='color:grey;font-size:x-large;'></i></a>
+        </button>
+      </p>
+    </div>
+    {% endif %}
+    <div>
+      <button type="button" class="close btn" aria-label="Close" data-toggle="tooltip" data-placement="top"
+        title="Delete this task from your ToDo list">
+        <a href="{% url 'task-delete' task.id %}"><span aria-hidden="true" class="text-white">&times;</span></a>
+      </button>
+    </div>
+  </div>
+  {% empty %}
+  <h3>No Tasks yet!</h3>
+  {% endfor %}
+</div>
+{% comment %} <table>
+  <thead>
+    <tr>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <td>{{task.title}}</td>
+      <td><a href="{% url 'task' task.id %}">View Task</a></td>
+      <td><a href="{% url 'task-update' task.id %}">Edit Task</a></td>
+      <td><a href="{% url 'task-delete' task.id %}">Delete Task</a></td>
+    </tr>
+    {% empty %}
+    <h3>No Tasks yet!</h3>
+    {% endfor %}
+  </tbody>
+</table> {% endcomment %}
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'todo/index.html' %}
+{% block title %}TodoList Task form{% endblock title %}
+{% block content %}
+<h1>Task Form</h1>
+<br>
+<form action="" method="post"> {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit" class="btn btn-light">Submit</button>
+
+</form>
+<br>
+
+<button type="button" class="btn btn-light" data-toggle="tooltip" data-placement="right" title="Back to Task list">
+  <a href="{% url 'tasks' %}"><i class='bx bx-arrow-back' style='color:darkslategrey;font-size:xxx-large;'></i></a>
+</button>
+{% endblock content %}

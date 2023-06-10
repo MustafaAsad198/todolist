@@ -1,0 +1,18 @@
+{% extends 'todo/index.html' %}
+{% block title %}{{request.user}}'s task - {{task.title}}{% endblock title %}
+{% block content %}
+<h1>Your Task : {{task.title}}</h1>
+{% if task.complete %}
+is Completed.
+{% else %}
+is <i>Not</i> Completed yet.
+{% endif %}
+<br>
+<br>
+<p><b>Know more about your task:   </b>{{task.description}}</p>
+  
+<button type="button" class="btn btn-light" data-toggle="tooltip" data-placement="right"
+  title="Back to Task list">
+  <a href="{% url 'tasks' %}"><i class='bx bx-arrow-back' style='color:darkslategrey;font-size:xxx-large;'></i></a>
+</button>
+{% endblock content %}

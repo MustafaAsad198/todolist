@@ -1,0 +1,16 @@
+{% extends 'todo/index.html' %}
+{% block title %}Signup form{% endblock title %}
+{% block content %}
+<h1>SignUp Form</h1>
+<form action="" method="post"> {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit" class="btn btn-light">SignUp</button>
+</form>
+<br>
+<hr><br>
+<h4>Already have an account? Login yourself here!</h4>
+<button type="button" class="btn btn-light" data-toggle="tooltip" data-placement="right" title="Login here">
+  <a href="{% url 'login' %}" style="color:black;">Login</a>
+</button>
+{% endblock content %}
+
